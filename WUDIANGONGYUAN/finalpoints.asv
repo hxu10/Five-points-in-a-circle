@@ -1,0 +1,33 @@
+% get five points randomly
+function [x,y] = intersection(i,heart,r,sec,N)
+syms x;
+syms y;
+
+j = mod(i,N)+1;
+k = mod(i+N-3,N)+1;
+r1 = r(i);
+r2 = r(j);
+x1 = heart(i,1);
+y1 = heart(i,2);
+x2 = heart(j,1);
+y2 = heart(j,2);
+
+[x0,y0] = solve((x-x1)^2+(y-y1)^2-r1^2,(x-x2)^2+(y-y2)^2-r2^2);
+correct = 0; 
+i_solve = 1;
+abs(x0(i_solve)-sec(k,1))
+for i_solve=1:2
+    
+   if(abs(x0(i_solve)-sec(k,1)) <0.000001 && abs(y0(i_solve)-sec(k,2)) <0.000001) 
+      correct = 3 - i_solve;
+   end
+end
+if (correct == 0)
+    display('Naive! there is something wrong with the intersection of two circle! ')
+else
+    x = x0(correct);
+    y = y0(correct);
+end
+
+
+end
